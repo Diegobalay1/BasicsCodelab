@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 
@@ -34,14 +35,18 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MyApp() {
+    Surface(
+        color = MaterialTheme.colors.background
+    ) {
+        var shouldShowOnboarding by rememberSaveable { mutableStateOf(true) }
 
-    var shouldShowOnboarding by remember { mutableStateOf(true) }
-
-    if (shouldShowOnboarding) {
-        OnboardingScreen(onContinueClicked = { shouldShowOnboarding = false })
-    } else {
-        Greetings()
+        if (shouldShowOnboarding) {
+            OnboardingScreen(onContinueClicked = { shouldShowOnboarding = false })
+        } else {
+            Greetings()
+        }
     }
+
 }
 
 @Composable
